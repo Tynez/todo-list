@@ -1,0 +1,34 @@
+<ion-header [translucent]="true" no-border class="ion-no-border">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/"></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{ list.title }}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-item>
+            <ion-label position="floating">Nueva lista</ion-label>
+            <ion-input type="text" [(ngModel)]="itemName" (keyup.enter)="createList()"></ion-input>
+        </ion-item>
+    </ion-list>
+    <ion-list>
+        <ion-list-header *ngIf="list.items.length > 0">
+            Lista de tareas
+        </ion-list-header>
+        <ion-item-sliding *ngFor="let item of list.items; let idx = index" class="animated fadeInDown">
+            <ion-item>
+                <ion-checkbox slot="start" color="primary" [(ngModel)]="item.completed" (ionChange)="updateCheck( item )">
+                </ion-checkbox>
+                <ion-label>{{ item.desc }}</ion-label>
+            </ion-item>
+            <ion-item-options side="end">
+                <ion-item-option color="danger" (click)="deleteList(idx)">
+                    <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+                </ion-item-option>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+</ion-content>
